@@ -9,7 +9,7 @@ module Rulers
       elsif env['PATH_INFO'] == '/'
         return [200, {'Content-Type' => 'text/html'}, ["Home Page"]]
       elsif env['PATH_INFO'] == '/r'
-        return [200, {'Content-Type' => 'text/html', 'Location'=>'/quotes/a_quote'},[]]
+        return [302, {'Content-Type' => 'text/html', 'Location'=>'/quotes/redirected_quote'},[]]
       end
       
       begin  
