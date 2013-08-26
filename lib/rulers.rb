@@ -6,13 +6,20 @@ module Rulers
     def call(env)
       if env['PATH_INFO'] == '/favicon.ico'
         return [404, {'Content-Type' => 'text/html'}, []]
+      elsif env['PATH_INFO'] == '/'
+        return [200, {'Content-Type' => 'text/html'}, ["Home Page"]]
+      elsif env['PATH_INFO'] == '/r'
+        return [200, {'Content-Type' => 'text/html', 'Location'=>'/quotes/a_quote'},[]]
       end
-
-      klass, act = get_controller_and_action(env)
-      controller = klass.new(env)
-      text = controller.send(act)
-      [200, {'Content-Type' => 'text/html'},
-      [text]]
+      
+      begin  
+        klass, act = get_controller_and_action(env)
+        controller = klass.new(env)
+        text = controller.send(act)
+        [200, {'Content-Type' => 'text/html'},[text]]
+      rescue
+        [500, {'Content-Type' => 'text/html'},["simple error - no controller action"]]
+      end
     end
   end
 
