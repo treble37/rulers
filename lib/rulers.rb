@@ -1,5 +1,8 @@
+# rulers/lib/rulers.rb
 require "rulers/version"
 require "rulers/routing"
+require "rulers/util"
+require "rulers/dependencies"
 module Rulers
   # Your code goes here...
   class Application
@@ -18,7 +21,7 @@ module Rulers
         text = controller.send(act)
         [200, {'Content-Type' => 'text/html'},[text]]
       rescue
-        [500, {'Content-Type' => 'text/html'},["simple error - no controller action"]]
+        [500, {'Content-Type' => 'text/html'},["simple error - no controller action: #{klass}**#{act}"]]
       end
     end
   end
