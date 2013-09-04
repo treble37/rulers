@@ -16,12 +16,13 @@ module Rulers
       end
       
       begin  
+        binding.pry
         klass, act = get_controller_and_action(env)
         controller = klass.new(env)
         text = controller.send(act)
         [200, {'Content-Type' => 'text/html'},[text]]
       rescue
-        [500, {'Content-Type' => 'text/html'},["simple error - no controller action: #{klass}**#{act}"]]
+        [500, {'Content-Type' => 'text/html'},["simple error - no controller action"]]
       end
     end
   end
