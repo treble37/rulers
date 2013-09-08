@@ -16,5 +16,6 @@ Gem::Specification.new do |gem|
   gem.version       = Rulers::VERSION
 
   gem.add_runtime_dependency "rack"
+  gem.add_runtime_dependency "erubis"
   gem.add_development_dependency "rack-test"
 end

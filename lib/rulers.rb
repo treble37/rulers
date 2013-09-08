@@ -3,6 +3,8 @@ require "rulers/version"
 require "rulers/routing"
 require "rulers/util"
 require "rulers/dependencies"
+require "rulers/controller"
+
 module Rulers
   # Your code goes here...
   class Application
