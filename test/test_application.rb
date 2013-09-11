@@ -1,5 +1,13 @@
 require_relative "test_helper"
+class TestController < Rulers::Controller
+  def index
+    "Hello!" # Not rendering a view
+  end
+end
 class TestApp < Rulers::Application
+  def get_controller_and_action(env)
+    [TestController, "index"]
+  end
 end
 class RulersAppTest < Test::Unit::TestCase
   include Rack::Test::Methods
@@ -7,7 +15,7 @@ class RulersAppTest < Test::Unit::TestCase
     TestApp.new
   end
   def test_request
-    get "/"
+    get "/example/route"
     assert last_response.ok?
     body = last_response.body
     assert body["Hello"]
