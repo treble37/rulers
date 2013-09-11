@@ -23,6 +23,5 @@ module Rulers
     eruby = Erubis::Eruby.new(template)
     eruby.result locals.merge(:env => env)
   end
-
   
 end
