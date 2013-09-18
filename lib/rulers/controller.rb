@@ -1,8 +1,9 @@
 require "erubis"
-
+require "rulers/file_model"
 # rulers/lib/rulers/controller.rb
 module Rulers
   class Controller
+    include Rulers::Model
     def initialize(env)
       @env = env
     end
