@@ -51,6 +51,14 @@ TEMPLATE
 
         FileModel.new "db/quotes/#{id}.json"
       end
+      def self.save
+        #prelim save method assuming no access to params
+        save_file_model = find(1)
+        json_data = MultiJson.dump(save_file_model.hash)
+        File.open("db/quotes/#{save_file_model.id}.json", "w") do |f|
+          f.write json_data
+        end
+      end
       
     end
   end
