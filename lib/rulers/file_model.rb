@@ -3,6 +3,7 @@ require "multi_json"
 module Rulers
   module Model
     class FileModel
+      attr_reader :hash
       def initialize(filename)
         @filename = filename
         # If filename is "dir/37.json", @id is 37
@@ -51,15 +52,17 @@ TEMPLATE
 
         FileModel.new "db/quotes/#{id}.json"
       end
-      def self.save
+      def self.save(attrs={"submitter"=>"Jacob Jingleheimer Schmidt"})
         #prelim save method assuming no access to params
-        save_file_model = find(1)
+        #raise "NO GETS ALLOWED!" unless env["REQUEST_METHOD"] == "POST"
+        save_file_model = FileModel.find(1)
+        save_file_model.hash.merge!(attrs)
         json_data = MultiJson.dump(save_file_model.hash)
-        File.open("db/quotes/#{save_file_model.id}.json", "w") do |f|
+        File.open("db/quotes/1.json", "w") do |f|
           f.write json_data
         end
       end
-      
+
     end
   end
 end
