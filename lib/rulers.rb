@@ -26,7 +26,7 @@ module Rulers
           st, hd, rs = controller.get_response.to_a
           [st, hd, [rs.body].flatten]
         else
-          [200,{'Content-Type' => 'text/html'}, [text]]
+          controller.render_response(act,:obj=>text)
         end
       rescue
         [500, {'Content-Type' => 'text/html'},["simple error - no controller action - TEXT: #{text.inspect}  klass: #{klass.inspect} action: #{act.inspect} controller: #{controller.inspect}"]]
