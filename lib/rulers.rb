@@ -29,7 +29,7 @@ module Rulers
           [200,{'Content-Type' => 'text/html'}, [text]]
         end
       rescue
-        [500, {'Content-Type' => 'text/html'},["simple error - no controller action - klass: #{klass.inspect} action: #{act.inspect} controller: #{controller.inspect}"]]
+        [500, {'Content-Type' => 'text/html'},["simple error - no controller action - TEXT: #{text.inspect}  klass: #{klass.inspect} action: #{act.inspect} controller: #{controller.inspect}"]]
       end
     end
   end
