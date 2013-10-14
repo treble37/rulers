@@ -82,6 +82,19 @@ SQL
         end
        @schema
       end
+      def self.method_missing(method_name_sym, *args, &block)
+        # the first argument is a Symbol, so you need to_s it if you want to pattern match
+        if method_name_sym.to_s =~ /^find_by_(.*)$/
+         @search_str = args[0][args[0].keys.first]
+          row = DB.execute <<SQL
+          select #{schema.keys.join ","} from #{table}
+          where #{args[0].keys.first} = '#{@search_str}';
+SQL
+          data = Hash[schema.keys.zip row[0]]
+          self.new data
+        end
+      end
+
     end
   end
 end
