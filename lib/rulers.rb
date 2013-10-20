@@ -20,14 +20,16 @@ module Rulers
       
       begin  
         klass, act = get_controller_and_action(env)
-        controller = klass.new(env)
-        text = controller.send(act)
-        if controller.get_response
-          st, hd, rs = controller.get_response.to_a
-          [st, hd, [rs.body].flatten]
-        else
-          controller.render_response(act,:obj=>text)
-        end
+        rack_app = klass.action(act)
+        rack_app.call(env)
+        # controller = klass.new(env)
+        # text = controller.send(act)
+        # if controller.get_response
+        #   st, hd, rs = controller.get_response.to_a
+        #   [st, hd, [rs.body].flatten]
+        # else
+        #   controller.render_response(act,:obj=>text)
+        # end
       rescue
         [500, {'Content-Type' => 'text/html'},["simple error - no controller action - TEXT: #{text.inspect}  klass: #{klass.inspect} action: #{act.inspect} controller: #{controller.inspect}"]]
       end
